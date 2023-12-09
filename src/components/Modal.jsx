@@ -16,11 +16,14 @@ const Modal = ({ type, setShowModal, content, setContent }) => {
   // Create a reference to the hidden file input element
   const hiddenFileInput = useRef(null);
 
-  const escFunction = useCallback((event) => {
-    if (event.key === "Escape") {
-      setShowModal("");
-    }
-  }, []);
+  const escFunction = useCallback(
+    (event) => {
+      if (event.key === "Escape") {
+        setShowModal("");
+      }
+    },
+    [setShowModal]
+  );
 
   const handleCancel = () => {
     setParagraph("");
@@ -116,7 +119,7 @@ const Modal = ({ type, setShowModal, content, setContent }) => {
             <h1>Post an Image</h1>
             {tempImagePreviewUrl ? (
               <div className="image-container">
-                <img src={tempImagePreviewUrl} />
+                <img src={tempImagePreviewUrl} alt="temporary image preview" />
                 <button onClick={handleImageRemove}>
                   <CloseIcon />
                 </button>

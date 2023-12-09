@@ -1,19 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useOutletContext, useNavigate } from "react-router-dom";
-import { collection, getDoc, doc, setDoc } from "firebase/firestore";
-
-import { ThemeContext } from "../context/ThemeContext";
-import transition from "../transitions/transitions";
-
-import "../styles/_post.scss";
-import SplitText from "../components/SplitText";
-import { db } from "../utils/firebase";
+import { useOutletContext, useNavigate } from "react-router-dom";
+import { doc, setDoc } from "firebase/firestore";
 import { Spotify } from "react-spotify-embed";
 
+import { ThemeContext } from "../context/ThemeContext";
+
+import { db } from "../utils/firebase";
+
+import "../styles/_post.scss";
+
 const Post = () => {
-  const navigate = useNavigate();
   // Outlet Context
-  const [blogPostIndex, data, handleRouteToHome] = useOutletContext();
+  const [data, handleRouteToHome] = useOutletContext();
 
   // Comments
   const [comments, setComments] = useState([]);
@@ -66,13 +64,20 @@ const Post = () => {
       </div>
       <div className="content">
         <div className="blog-content-container">
-          {data?.content?.map((section) => {
+          {data?.content?.map((section, i) => {
             if (section.type === "text") {
-              return <p className="section-text">{section.text}</p>;
+              return (
+                <p className="section-text" key={`Section text ${i}`}>
+                  {section.text}
+                </p>
+              );
             } else {
               return (
-                <div className="section-image">
-                  <img src={section.imageUrl} />
+                <div
+                  className="section-image"
+                  key={`Section Image Container ${i}`}
+                >
+                  <img src={section.imageUrl} alt={`Section Image ${i}`} />
                   {section.imageCaption && <span>{section.imageCaption}</span>}
                 </div>
               );

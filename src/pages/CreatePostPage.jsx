@@ -1,22 +1,21 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
-import { Reorder, useMotionValue } from "framer-motion";
-import { collection, getDocs, doc, setDoc } from "firebase/firestore";
+import { Reorder } from "framer-motion";
+import { doc, setDoc } from "firebase/firestore";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import imageCompression from "browser-image-compression";
 import { v4 as uuidv4 } from "uuid";
 
+import { db, storage } from "../utils/firebase";
 import { ThemeContext } from "../context/ThemeContext";
 import transition from "../transitions/transitions";
 
 import { ReactComponent as ImagePlaceholder } from "../images/image-placeholder.svg";
 import { ReactComponent as TextPlaceholder } from "../images/text-placeholder.svg";
-
 import { ReactComponent as CloseIcon } from "../images/close-icon.svg";
 
 import "../styles/_createPost.scss";
-import SplitText from "../components/SplitText";
-import { db, storage } from "../utils/firebase";
+
 import Modal from "../components/Modal";
 import ReorderItem from "../components/ReorderItem";
 
@@ -292,7 +291,7 @@ const CreatePostPage = () => {
             <div>
               {thumbnail ? (
                 <div className="image-container">
-                  <img src={URL.createObjectURL(thumbnail)} />
+                  <img src={URL.createObjectURL(thumbnail)} alt="Image Thumbnail"/>
                   <button onClick={() => setThumbnail(null)}>
                     <CloseIcon />
                   </button>

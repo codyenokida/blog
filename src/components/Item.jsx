@@ -16,7 +16,11 @@ const Item = ({ thumbnailImage, title, datePosted, index, onClick, id }) => {
       <div className="image-container">
         <Link to={`/post/${id}`} onClick={onClick}>
           {loading && <div className="skeleton" />}
-          <img src={thumbnailImage} onLoad={handleOnLoad} />
+          <img
+            src={thumbnailImage}
+            onLoad={handleOnLoad}
+            alt={`${title} thumbnail image`}
+          />
         </Link>
       </div>
       <div className="item-title">

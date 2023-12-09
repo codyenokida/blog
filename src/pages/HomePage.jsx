@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { collection, getDocs, where, query } from "firebase/firestore";
 
@@ -80,7 +80,7 @@ const HomePage = () => {
     };
 
     getDocument();
-  }, [db, activeCategoryIndex]);
+  }, [categories, activeCategoryIndex, navigate, pathBlogPostId]);
 
   // Check if the location changed
   useEffect(() => {
@@ -92,7 +92,7 @@ const HomePage = () => {
         }
       }
     }
-  }, [location, posts]);
+  }, [location, posts, setActivePostIndex, setShowPost]);
 
   // Handler for routing back to home page without reloading page
   const handleRouteToHome = () => {
@@ -151,13 +151,7 @@ const HomePage = () => {
         </div>
         <div className="border" />
         <div className="blog-content desktop">
-          <Outlet
-            context={[
-              activePostIndex,
-              posts[activePostIndex],
-              handleRouteToHome,
-            ]}
-          />
+          <Outlet context={[posts[activePostIndex], handleRouteToHome]} />
         </div>
 
         {/* Mobile Only Divs */}
@@ -173,13 +167,7 @@ const HomePage = () => {
         </div>
         {showPost !== null && (
           <div className="blog-content mobile">
-            <Outlet
-              context={[
-                activePostIndex,
-                posts[activePostIndex],
-                handleRouteToHome,
-              ]}
-            />
+            <Outlet context={[posts[activePostIndex], handleRouteToHome]} />
           </div>
         )}
       </div>
