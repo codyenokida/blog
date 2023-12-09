@@ -1,16 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { ThemeContextProvider } from "./context/ThemeContext";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
 import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
+import CreatePostPage from "./pages/CreatePostPage";
+
+import Post from "./components/Post";
+
+import { ThemeContextProvider } from "./context/ThemeContext";
+
+import reportWebVitals from "./reportWebVitals";
 
 import "./index.scss";
-import reportWebVitals from "./reportWebVitals";
-import Post from "./components/Post";
-import CreatePostPage from "./pages/CreatePostPage";
 
 const router = createBrowserRouter([
   {
