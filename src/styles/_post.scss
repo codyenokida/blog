@@ -133,6 +133,17 @@
 .post-container.dark {
   color: $fontColorDark;
 
+  .title-container {
+    .link {
+      border: $borderDark;
+
+      &:hover {
+        background-color: $backgroundColorLight;
+        color: $fontColorLight;
+      }
+    }
+  }
+
   .content {
     .blog-content-container {
       .section-image {
@@ -207,7 +218,7 @@
 
         &:hover {
           background-color: $backgroundColorDark;
-          color: $fontColorLight;
+          color: $fontColorDark;
         }
       }
 
