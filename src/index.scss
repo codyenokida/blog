@@ -1,6 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;300;400;500;700;800&display=swap");
 @import "./styles/_variables.scss";
 
+html {
+  background-color: $backgroundColorLight;
+
+  &:has(.dark) {
+    background-color: $backgroundColorDark;
+  }
+}
+
 body {
   margin: 0;
   font-family: $globalFontFamily;
