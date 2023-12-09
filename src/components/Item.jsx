@@ -19,7 +19,7 @@ const Item = ({ thumbnailImage, title, datePosted, index, onClick, id }) => {
           <img
             src={thumbnailImage}
             onLoad={handleOnLoad}
-            alt={`${title} thumbnail image`}
+            alt={`${title} thumbnail`}
           />
         </Link>
       </div>

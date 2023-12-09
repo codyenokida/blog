@@ -119,7 +119,7 @@ const Modal = ({ type, setShowModal, content, setContent }) => {
             <h1>Post an Image</h1>
             {tempImagePreviewUrl ? (
               <div className="image-container">
-                <img src={tempImagePreviewUrl} alt="temporary image preview" />
+                <img src={tempImagePreviewUrl} alt="temporary preview" />
                 <button onClick={handleImageRemove}>
                   <CloseIcon />
                 </button>

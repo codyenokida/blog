@@ -291,7 +291,7 @@ const CreatePostPage = () => {
             <div>
               {thumbnail ? (
                 <div className="image-container">
-                  <img src={URL.createObjectURL(thumbnail)} alt="Image Thumbnail"/>
+                  <img src={URL.createObjectURL(thumbnail)} alt="Thumbnail"/>
                   <button onClick={() => setThumbnail(null)}>
                     <CloseIcon />
                   </button>

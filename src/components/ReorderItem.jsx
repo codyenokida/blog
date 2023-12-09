@@ -19,7 +19,7 @@ const ReorderItem = ({ type, key, value, i, handleRemoveContent }) => {
   return (
     <Reorder.Item key={key} value={value}>
       <div className="item-image">
-        <img src={URL.createObjectURL(value.tempImagePreviewFile)} alt="item image"/>
+        <img src={URL.createObjectURL(value.tempImagePreviewFile)} alt="item temporary"/>
         {value.imageCaption && <span>{value.imageCaption}</span>}
         <button onClick={() => handleRemoveContent(i)}>
           <CloseIcon />

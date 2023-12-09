@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useOutletContext, useNavigate } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 import { Spotify } from "react-spotify-embed";
 
@@ -77,7 +77,7 @@ const Post = () => {
                   className="section-image"
                   key={`Section Image Container ${i}`}
                 >
-                  <img src={section.imageUrl} alt={`Section Image ${i}`} />
+                  <img src={section.imageUrl} alt={`Section ${i}`} />
                   {section.imageCaption && <span>{section.imageCaption}</span>}
                 </div>
               );

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { collection, getDocs, where, query } from "firebase/firestore";
 
@@ -21,7 +21,11 @@ const HomePage = () => {
   const pathBlogPostId = pathname[pathname.length - 1];
 
   // Category State
-  const categories = ["Show All", "Takes", "Travel", "Movies", "Tech", "Misc."];
+  const categories = useMemo(
+    () => ["Show All", "Takes", "Travel", "Movies", "Tech", "Misc."],
+    []
+  );
+
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
 
   // Posts
