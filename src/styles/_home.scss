@@ -1,0 +1,306 @@
+@import "./_variables.scss";
+
+// HOME PAGE STYLING
+
+// PAGE CONTAINER
+.container.home {
+  // TITLTE
+  .title-wrapper {
+    h1 {
+      margin: 0;
+      font-weight: 900;
+
+      & span span {
+        position: relative;
+        bottom: -1em;
+        opacity: 0;
+        animation: move-text 0.25s forwards;
+      }
+    }
+
+    p {
+      margin: 0.75rem 0 1rem 0;
+      font-weight: 400;
+
+      & span span {
+        position: relative;
+        bottom: -1em;
+        opacity: 0;
+        animation: move-text 0.25s forwards;
+      }
+    }
+  }
+
+  // CATEGORY PILLS
+  .category-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    .category-pill {
+      font-family: $globalFontFamily;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border: $borderLight;
+      background: transparent;
+      cursor: pointer;
+
+      position: relative;
+      bottom: -1em;
+      opacity: 0;
+      animation: move-item 0.5s forwards;
+
+      &.active {
+        background: #adffce;
+      }
+
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+  }
+
+  // NEW CONTAINER
+  .home-content-container {
+    display: grid;
+    grid-template-columns: 3fr 1px 5fr;
+    border-top: $borderLight;
+    border-bottom: $borderLight;
+
+    .navigation {
+      &.mobile {
+        display: none;
+      }
+
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1.5rem 2rem 0 0;
+
+      a {
+        text-decoration: none;
+        color: $fontColorInactiveLight;
+        font-weight: 700;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: #b1ffcb wavy underline;
+        }
+
+        &.active {
+          color: $fontColorLight;
+          text-decoration: #b689ff wavy underline;
+        }
+      }
+    }
+
+    .border {
+      width: 1px;
+      background-color: $fontColorLight;
+      height: 100%;
+    }
+
+    .blog-content {
+      &.mobile {
+        display: none;
+      }
+    }
+  }
+
+  // FOOTER
+  .footer {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+
+    .lights {
+      border: $borderLight;
+      padding: 1rem;
+      background-color: transparent;
+      cursor: pointer;
+
+      svg {
+        fill: $fontColorLight;
+        transform: scale(-1, 1) rotate(180deg);
+      }
+    }
+  }
+}
+
+// DARK THEME
+.container.home.dark {
+  // TITLTE
+  .title-wrapper {
+    color: $fontColorDark;
+  }
+
+  // CATEGORY PILLS
+  .category-container {
+    .category-pill {
+      color: $fontColorDark;
+      border: $borderDark;
+
+      &.active {
+        background: #063418;
+      }
+    }
+  }
+
+  // NEW CONTAINER
+  .home-content-container {
+    border-top: $borderDark;
+    border-bottom: $borderDark;
+
+    .navigation {
+      a {
+        &.active {
+          color: $fontColorDark;
+        }
+      }
+    }
+
+    .border {
+      background-color: $fontColorDark;
+    }
+  }
+
+  // FOOTER
+  .footer {
+    .lights {
+      border: $borderDark;
+      padding: 1rem;
+      background-color: transparent;
+      cursor: pointer;
+
+      svg {
+        fill: $fontColorDark;
+        transform: rotate(0);
+      }
+    }
+  }
+}
+
+// MEDIA QUERIES!!!
+
+@media only screen and (min-width: 768px) {
+  /* tablets and desktop */
+}
+
+@media only screen and (max-width: 767px) {
+  .container.home {
+    .home-content-container {
+      display: flex;
+      flex-direction: column;
+
+      .border {
+        display: none;
+      }
+
+      .navigation {
+        &.mobile {
+          display: flex;
+          flex-direction: column;
+          padding: 2rem 0 0 0;
+          gap: 2rem;
+
+          .item {
+            border-bottom: $borderLight;
+
+            &:last-of-type {
+              border-bottom: none;
+            }
+
+            .image-container {
+              width: 100%;
+              height: 100%;
+              border: $borderLight;
+              a {
+                position: relative;
+                display: block;
+                width: 100%;
+                height: 20rem;
+
+                .skeleton {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  z-index: 13;
+                  width: 100%;
+                  height: 20rem;
+                  background-color: #e6a37d;
+                  // The shine that's going to move across the skeleton:
+                  background-image: linear-gradient(
+                    40deg,
+                    rgba(#fff, 0),
+                    rgba(#fff, 0.5),
+                    rgba(#fff, 0)
+                  );
+                  background-size: 40px 100%; // width of the shine
+                  background-repeat: no-repeat; // No need to repeat the shine effect
+                  background-position: left -40px top 0; // Place shine on the left side, with offset on the left based on the width of the shine - see background-size
+                  animation: shine 1s ease infinite; // increase animation time to see effect in 'slow-mo'
+                }
+
+                img {
+                  width: 100%;
+                  height: 20rem;
+                  object-fit: cover;
+                }
+              }
+            }
+
+            .item-title {
+              margin-top: 1rem;
+              .link {
+                font-size: 1.5rem;
+                color: $fontColorLight;
+              }
+
+              .date {
+                margin-top: 0;
+                color: $fontColorDescription;
+              }
+            }
+          }
+        }
+
+        &.desktop {
+          display: none;
+        }
+      }
+
+      .blog-content {
+        &.mobile {
+          display: block;
+        }
+
+        &.desktop {
+          display: none;
+        }
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 1000;
+        overflow: scroll;
+        background-color: $backgroundColorLight;
+
+        .post-container {
+          min-height: auto;
+          height: 100%;
+          margin: 0;
+          padding: 2rem;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+  /* portrait phones */
+}

@@ -1,0 +1,430 @@
+@import "./_variables.scss";
+
+.post-create-container {
+  padding: 4rem 26rem;
+
+  .content-post-container {
+    margin: 0;
+    min-height: auto;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .error {
+        color: $red;
+      }
+
+      .title-input {
+        width: calc(100% - 8px);
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        background-color: transparent;
+        border: $borderLight;
+        font-family: JetBrains Mono;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      .spotify-input {
+        width: calc(100% - 8px);
+        height: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        background-color: transparent;
+        border: $borderLight;
+        font-family: JetBrains Mono;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      // CATEGORY PILLS
+      .category-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        .category-pill {
+          font-family: $globalFontFamily;
+          font-weight: 700;
+          padding: 0.25rem 0.75rem;
+          border: $borderLight;
+          background: transparent;
+          cursor: pointer;
+
+          position: relative;
+
+          &.active {
+            background: #adffce;
+          }
+
+          &:hover {
+            opacity: 0.75;
+          }
+        }
+      }
+
+      // IMAGE STYLING
+      button.image-container {
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+
+      .image-container {
+        position: relative;
+        border-style: dashed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: JetBrains Mono;
+        background-color: transparent;
+        align-items: stretch;
+        height: 300px;
+
+        img {
+          width: 100%;
+          height: 300px;
+          object-fit: contain;
+        }
+
+        button {
+          position: absolute;
+          top: 0.25rem;
+          right: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+
+          svg {
+            width: 2rem;
+            height: 2rem;
+            rect {
+              fill: $fontColorLight;
+            }
+          }
+        }
+
+        input {
+          display: none;
+        }
+
+        .image-placeholder {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+
+          svg {
+            width: 20%;
+            height: auto;
+          }
+        }
+      }
+
+      .content-block {
+        ul {
+          list-style-type: none;
+          padding: 0;
+
+          li {
+            margin-bottom: 1rem;
+
+            cursor: grab;
+            cursor: -webkit-grab;
+            cursor: -moz-grab;
+
+            &:active {
+              cursor: grabbing;
+            }
+
+            div {
+              width: 100%;
+              position: relative;
+              white-space: pre-line;
+
+              img {
+                width: 100%;
+                pointer-events: none;
+              }
+
+              button {
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: transparent;
+                border: none;
+                top: 0;
+                right: -2rem;
+                cursor: pointer;
+
+                svg {
+                  width: 1rem;
+                  height: 1rem;
+                  circle {
+                    stroke: $fontColorLight;
+                  }
+                  rect {
+                    fill: $fontColorLight;
+                  }
+                }
+              }
+
+              &:before {
+                content: ".";
+                position: absolute;
+                top: -10px;
+                left: -1.5rem;
+                font-size: 20px;
+                line-height: 20px;
+                color: #ac14c2;
+                text-shadow: 0 5px #ac14c2, 0 10px #ac14c2, 5px 0 #ac14c2,
+                  5px 5px #ac14c2, 5px 10px #ac14c2, 10px 0 #ac14c2,
+                  10px 5px #ac14c2, 10px 10px #ac14c2;
+              }
+            }
+
+            .item-image {
+              display: flex;
+              flex-direction: column;
+
+              img {
+                width: 80%;
+                border: $borderLight;
+              }
+            }
+          }
+        }
+      }
+
+      .section-create-container {
+        gap: 0.5rem;
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        .section-chooser {
+          flex: 1;
+          margin: 0.5rem 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          border: $borderLight;
+          padding: 1rem 0;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.7;
+          }
+
+          p {
+            margin: 0.5rem 0 0 0;
+          }
+
+          svg {
+            width: 60px;
+            height: 60px;
+          }
+        }
+      }
+    }
+  }
+
+  .button-container {
+    margin-top: 2rem;
+
+    button {
+      font-family: JetBrains Mono;
+      background: transparent;
+      font-size: 1rem;
+      padding: 1rem 2rem;
+      border: $borderLight;
+      cursor: pointer;
+
+      &:hover {
+        background: $backgroundColorDark;
+        color: $fontColorDark;
+      }
+
+      &:first-of-type {
+        margin-right: 1rem;
+      }
+    }
+  }
+}
+
+// DARK MODE!!!
+.post-create-container.dark {
+  color: $fontColorDark;
+
+  .content-post-container {
+    .content {
+      .error {
+        color: $red;
+      }
+
+      .title-input {
+        border: $borderDark;
+      }
+
+      .spotify-input {
+        border: $borderDark;
+      }
+
+      // CATEGORY PILLS
+      .category-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        .category-pill {
+          color: $fontColorDark;
+          border: $borderDark;
+
+          &.active {
+            color: $fontColorLight;
+            background: #adffce;
+          }
+        }
+      }
+
+      button.image-container {
+        color: $fontColorDark;
+        .image-placeholder {
+          svg {
+            fill: $fontColorDark;
+          }
+        }
+      }
+
+      .content-block {
+        ul {
+          li {
+            div {
+              button {
+                svg {
+                  circle {
+                    stroke: $fontColorDark;
+                  }
+                  rect {
+                    fill: $fontColorDark;
+                  }
+                }
+              }
+            }
+
+            .item-image {
+              img {
+                border: $borderDark;
+              }
+            }
+          }
+        }
+      }
+
+      .section-create-container {
+        .section-chooser {
+          border: $borderDark;
+          svg {
+            fill: $fontColorDark;
+          }
+        }
+      }
+    }
+  }
+
+  .button-container {
+    button {
+      border: $borderDark;
+      color: $fontColorDark;
+
+      &:hover {
+        background: $backgroundColorLight;
+        color: $fontColorLight;
+      }
+    }
+  }
+}
+
+// MEDIA QUERIES!!!
+
+@media only screen and (min-width: 768px) and (max-width: 1200px) {
+  /* tablets and desktop */
+  .post-create-container {
+    padding: 3rem 10rem;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .post-create-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 1rem;
+
+    h1 {
+      margin-top: 0;
+    }
+
+    .content-post-container {
+      flex: 1;
+
+      .content {
+        .content-block {
+          ul {
+            li {
+              div {
+                button {
+                  padding: 0;
+                  right: -1rem;
+
+                  svg {
+                    width: 1.25rem;
+                    height: 1.25rem;
+                  }
+                }
+
+                &:before {
+                  content: ".";
+                  position: absolute;
+                  top: -10px;
+                  left: -1.25rem;
+                }
+              }
+            }
+          }
+        }
+
+        .section-create-container {
+          .section-chooser {
+            svg {
+              width: 40px;
+              height: 40px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+  /* portrait phones */
+}

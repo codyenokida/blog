@@ -1,0 +1,134 @@
+.modal {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  z-index: 100000;
+  background-color: rgb(0, 0, 0, 0.4);
+
+  .modal-content {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 60%;
+    padding: 2rem;
+    background-color: #faf9f4;
+    border: 2px solid #171923;
+    font-family: JetBrains Mono;
+
+    h1 {
+      margin: 0;
+    }
+
+    // PARAGRAPH STYLING
+
+    textarea {
+      margin: 1rem 0;
+      width: 100%;
+      height: 300px;
+      border: 2px solid #171923;
+      font-size: 1rem;
+    }
+
+    // IMAGE STYLING
+    button.image-container {
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    .image-container {
+      position: relative;
+      border-style: dashed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: JetBrains Mono;
+      background-color: transparent;
+      align-items: stretch;
+      margin: 1rem 0;
+      height: 300px;
+
+      img {
+        width: 100%;
+        height: 300px;
+        object-fit: contain;
+      }
+
+      button {
+        position: absolute;
+        top: 0.25rem;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+
+        svg {
+          width: 2rem;
+          height: 2rem;
+          rect {
+            fill: black;
+          }
+        }
+      }
+
+      input {
+        display: none;
+      }
+
+      .image-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        svg {
+          width: 20%;
+          height: auto;
+        }
+      }
+    }
+
+    .caption-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      margin-bottom: 1rem;
+
+      label {
+        font-size: 0.75rem;
+      }
+
+      input {
+        font-family: JetBrains Mono;
+        font-size: 0.75rem;
+      }
+    }
+
+    .modal-button-container {
+      display: flex;
+      gap: 1rem;
+
+      button {
+        padding: 1rem 2rem;
+        background: transparent;
+        border: 2px solid #171923;
+        z-index: 10000001;
+        font-family: JetBrains Mono;
+        cursor: pointer;
+
+        &:hover {
+          background: #171923;
+          color: #faf9f4;
+        }
+      }
+    }
+  }
+}
