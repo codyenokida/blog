@@ -153,6 +153,7 @@
   .home-content-container {
     border-top: $borderDark;
     border-bottom: $borderDark;
+    color: $fontColorDark;
 
     .navigation {
       a {
@@ -295,6 +296,43 @@
           height: 100%;
           margin: 0;
           padding: 2rem;
+        }
+      }
+    }
+  }
+
+  .container.home.dark {
+    .home-content-container {
+      .navigation {
+        &.mobile {
+          color: $fontColorDark;
+
+          .item {
+            border-bottom: $borderDark;
+
+            .image-container {
+              border: $borderDark;
+            }
+
+            .item-title {
+              .link {
+                color: $fontColorDark;
+              }
+            }
+          }
+        }
+      }
+
+      .blog-content {
+        background-color: $backgroundColorDark;
+        color: $fontColorDark;
+
+        .post-container {
+          .title-container {
+            .link {
+              color: $fontColorDark;
+            }
+          }
         }
       }
     }

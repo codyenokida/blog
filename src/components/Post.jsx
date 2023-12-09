@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useLocation } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 import { Spotify } from "react-spotify-embed";
 
@@ -10,6 +10,8 @@ import { db } from "../utils/firebase";
 import "../styles/_post.scss";
 
 const Post = () => {
+  const location = useLocation();
+
   // Outlet Context
   const [data, handleRouteToHome] = useOutletContext();
 
@@ -18,10 +20,29 @@ const Post = () => {
   const [commentAuthor, setCommentAuthor] = useState("");
   const [commentContent, setCommentContent] = useState("");
 
+  // Loading State
+  const [spotifyLoading, setSpotifyLoading] = useState(true);
+
+  // Theme
+  const { darkTheme } = useContext(ThemeContext);
+  const themeClassName = darkTheme ? "dark" : "light";
+
+  useEffect(() => {
+    setSpotifyLoading(true);
+  }, [location, setSpotifyLoading]);
+
   useEffect(() => {
     setComments(data?.comments);
-  }, [data]);
+  }, [data, setComments]);
 
+  // Handler for Spotify Embed (iframe) loading
+  const handleSpotifyOnLoad = () => {
+    setTimeout(() => {
+      setSpotifyLoading(false);
+    }, 750);
+  };
+
+  // Handler for posting comments for a postId
   const postComment = () => {
     if (commentAuthor && commentContent) {
       const collectionRef = doc(db, "blog-post", `${data.id}`);
@@ -40,10 +61,6 @@ const Post = () => {
     }
   };
 
-  const { darkTheme } = useContext(ThemeContext);
-
-  const themeClassName = darkTheme ? "dark" : "light";
-
   if (!data) {
     return null;
   }
@@ -51,8 +68,16 @@ const Post = () => {
   return (
     <div className={`post-container ${themeClassName}`}>
       {data?.spotifyLink && (
-        <div className="spotify-container">
-          <Spotify wide link={data.spotifyLink} />
+        <div className="music-container">
+          {spotifyLoading && <div className="spotify-loader" />}
+          <div className={`spotify-container `}>
+            <Spotify
+              wide
+              link={data.spotifyLink}
+              onLoadStart={() => setSpotifyLoading(true)}
+              onLoad={handleSpotifyOnLoad}
+            />
+          </div>
         </div>
       )}
       <div className="title-container">
@@ -91,7 +116,10 @@ const Post = () => {
               <>
                 {comments.map((comment) => {
                   return (
-                    <div className="comment-container">
+                    <div
+                      className="comment-container"
+                      key={`${comment.datePosted}`}
+                    >
                       <span className="author">{comment.author}</span>
                       <span className="datePosted">{comment.datePosted}</span>
                       <p className="comment-content">{comment.content}</p>
