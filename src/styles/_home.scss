@@ -4,6 +4,11 @@
 
 // PAGE CONTAINER
 .container.home {
+  &:has(.blog-content.mobile) {
+    overflow: hidden;
+    height: 80vh;
+  }
+
   // TITLTE
   .title-wrapper {
     h1 {
