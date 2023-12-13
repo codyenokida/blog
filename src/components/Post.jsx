@@ -7,6 +7,8 @@ import { ThemeContext } from "../context/ThemeContext";
 
 import { db } from "../utils/firebase";
 
+import Footer from "./Footer";
+
 import "../styles/_post.scss";
 
 const Post = () => {
@@ -24,7 +26,7 @@ const Post = () => {
   const [spotifyLoading, setSpotifyLoading] = useState(true);
 
   // Theme
-  const { darkTheme } = useContext(ThemeContext);
+  const { darkTheme, toggleTheme } = useContext(ThemeContext);
   const themeClassName = darkTheme ? "dark" : "light";
 
   useEffect(() => {
@@ -157,6 +159,7 @@ const Post = () => {
               Post
             </button>
           </div>
+          <Footer toggleTheme={toggleTheme} />
         </div>
       </div>
     </div>

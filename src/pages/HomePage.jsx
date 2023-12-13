@@ -7,9 +7,8 @@ import transition from "../transitions/transitions";
 import { ThemeContext } from "../context/ThemeContext";
 
 import SplitText from "../components/SplitText";
+import Footer from "../components/Footer";
 import Item from "../components/Item";
-
-import { ReactComponent as Light } from "../images/sideBar/light.svg";
 
 import "../styles/_home.scss";
 
@@ -29,9 +28,16 @@ const HomePage = () => {
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
 
   // Posts
+  const [postsLoading, setPostsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [activePostIndex, setActivePostIndex] = useState(0);
   const [activePostId, setActivePostId] = useState("");
+
+  const postLoadingHelper = (loading) => {
+    setTimeout(() => {
+      setPostsLoading(loading);
+    }, 750);
+  };
 
   // Mobile only state
   const [showPost, setShowPost] = useState(null);
@@ -45,6 +51,7 @@ const HomePage = () => {
     const collectionRef = collection(db, "blog-post");
 
     const getDocument = async () => {
+      setPostsLoading(true);
       let q;
       if (activeCategoryIndex) {
         q = where("category", "==", categories[activeCategoryIndex]);
@@ -60,6 +67,7 @@ const HomePage = () => {
         setActivePostId("");
         setShowPost(null);
         setPosts([]);
+        postLoadingHelper(false);
         return;
       }
 
@@ -71,6 +79,7 @@ const HomePage = () => {
         if (pathBlogPostId && i !== -1) {
           setActivePostId(pathBlogPostId);
           setActivePostIndex(i);
+          setShowPost(pathBlogPostId);
         } else {
           const firstPostId = collection?.[0]?.id ?? "";
           setActivePostId(firstPostId);
@@ -81,17 +90,27 @@ const HomePage = () => {
         setActivePostId(firstPostId);
         setActivePostIndex(0);
       }
+      postLoadingHelper(false);
     };
 
     getDocument();
-  }, [categories, activeCategoryIndex, navigate, pathBlogPostId]);
+  }, [
+    categories,
+    activeCategoryIndex,
+    navigate,
+    pathBlogPostId,
+    setPostsLoading,
+  ]);
 
   // Check if the location changed
   useEffect(() => {
     if (location) {
       if (location.pathname === "/") {
         if (!posts) {
+          setActivePostId("");
           setActivePostIndex(null);
+          setShowPost(null);
+        } else {
           setShowPost(null);
         }
       }
@@ -140,6 +159,7 @@ const HomePage = () => {
           </button>
         ))}
       </div>
+
       <div className="home-content-container">
         <div className="navigation desktop">
           {posts.map((post, i) => (
@@ -158,46 +178,33 @@ const HomePage = () => {
           <Outlet context={[posts[activePostIndex], handleRouteToHome]} />
         </div>
 
-        {/* Mobile Only Divs */}
-        <div className="navigation mobile">
-          {posts.map((post, i) => (
-            <Item
-              {...post}
-              index={i}
-              onClick={() => handleLinkClick(i, post.id)}
-              key={post.title}
-            ></Item>
-          ))}
-        </div>
-        {showPost !== null && (
-          <div className="blog-content mobile">
-            <Outlet context={[posts[activePostIndex], handleRouteToHome]} />
+        <>
+          {/* Mobile Only Divs */}
+          <div className="navigation mobile">
+            {postsLoading ? (
+              <div className="post-loading">Posts are Loading...</div>
+            ) : (
+              <>
+                {posts.map((post, i) => (
+                  <Item
+                    {...post}
+                    index={i}
+                    onClick={() => handleLinkClick(i, post.id)}
+                    key={post.title}
+                  ></Item>
+                ))}
+              </>
+            )}
           </div>
-        )}
+          {showPost !== null && (
+            <div className="blog-content mobile">
+              <Outlet context={[posts[activePostIndex], handleRouteToHome]} />
+            </div>
+          )}
+        </>
       </div>
-      <div className="footer">
-        <p>
-          Made by Kota Cody Enokida using{" "}
-          <a
-            href="https://react.dev/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React 👨‍💻
-          </a>
-          &nbsp;&&nbsp;
-          <a
-            href="https://firebase.google.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Firebase 🔥
-          </a>
-        </p>
-        <button className="lights" onClick={toggleTheme}>
-          <Light />
-        </button>
-      </div>
+
+      <Footer toggleTheme={toggleTheme} />
     </div>
   );
 };

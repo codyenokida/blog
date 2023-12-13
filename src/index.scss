@@ -32,6 +32,17 @@ body:has(.dark) {
   color: $fontColorDark;
 }
 
+@keyframes fadein {
+  from {
+    opacity: 0;
+    margin-top: 2rem;
+  }
+  to {
+    opacity: 1;
+    margin-top: 0;
+  }
+}
+
 @keyframes move-text {
   0% {
     bottom: -0.2rem;
@@ -90,7 +101,7 @@ body:has(.dark) {
 @media only screen and (max-width: 767px) {
   .container {
     min-height: calc(100vh - 4rem);
-    padding: 2rem 2rem;
+    padding: 2rem;
 
     .item-container {
       .item {
