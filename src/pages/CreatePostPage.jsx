@@ -8,7 +8,6 @@ import { v4 as uuidv4 } from "uuid";
 
 import { db, storage } from "../utils/firebase";
 import { ThemeContext } from "../context/ThemeContext";
-import transition from "../transitions/transitions";
 
 import { ReactComponent as ImagePlaceholder } from "../images/image-placeholder.svg";
 import { ReactComponent as TextPlaceholder } from "../images/text-placeholder.svg";
@@ -291,7 +290,7 @@ const CreatePostPage = () => {
             <div>
               {thumbnail ? (
                 <div className="image-container">
-                  <img src={URL.createObjectURL(thumbnail)} alt="Thumbnail"/>
+                  <img src={URL.createObjectURL(thumbnail)} alt="Thumbnail" />
                   <button onClick={() => setThumbnail(null)}>
                     <CloseIcon />
                   </button>
@@ -366,4 +365,4 @@ const CreatePostPage = () => {
   );
 };
 
-export default transition(CreatePostPage);
+export default CreatePostPage;

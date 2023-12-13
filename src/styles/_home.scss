@@ -303,6 +303,10 @@
           .item {
             border-bottom: $borderDark;
 
+            &:last-of-type {
+              border-bottom: none;
+            }
+
             .image-container {
               border: $borderDark;
             }

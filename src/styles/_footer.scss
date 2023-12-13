@@ -20,3 +20,19 @@
     }
   }
 }
+
+.dark {
+  .footer {
+    .lights {
+      border: $borderThemeDark;
+      padding: 1rem;
+      background-color: transparent;
+      cursor: pointer;
+
+      svg {
+        fill: $fontColorDark;
+        transform: rotate(0);
+      }
+    }
+  }
+}

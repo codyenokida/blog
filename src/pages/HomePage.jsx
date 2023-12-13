@@ -3,7 +3,6 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { collection, getDocs, where, query } from "firebase/firestore";
 
 import { db } from "../utils/firebase";
-import transition from "../transitions/transitions";
 import { ThemeContext } from "../context/ThemeContext";
 
 import SplitText from "../components/SplitText";
@@ -45,6 +44,10 @@ const HomePage = () => {
 
   // Mobile only state
   const [showPost, setShowPost] = useState(null);
+
+  useEffect(() => {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+  }, [showPost]);
 
   // Theme
   const { darkTheme, toggleTheme } = useContext(ThemeContext);
@@ -193,14 +196,16 @@ const HomePage = () => {
               <div className="post-loading">Posts are Loading...</div>
             ) : (
               <>
-                {posts.map((post, i) => (
-                  <Item
-                    {...post}
-                    index={i}
-                    onClick={() => handleLinkClick(i, post.id)}
-                    key={post.title}
-                  ></Item>
-                ))}
+                {posts.length
+                  ? posts.map((post, i) => (
+                      <Item
+                        {...post}
+                        index={i}
+                        onClick={() => handleLinkClick(i, post.id)}
+                        key={post.title}
+                      ></Item>
+                    ))
+                  : "No posts :("}
               </>
             )}
           </div>
@@ -212,4 +217,4 @@ const HomePage = () => {
   );
 };
 
-export default transition(HomePage);
+export default HomePage;

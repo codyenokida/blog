@@ -320,6 +320,10 @@
     height: 100%;
     .post-container {
       height: auto;
+
+      .content {
+        padding-bottom: 0;
+      }
     }
   }
 }
