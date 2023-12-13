@@ -1,0 +1,22 @@
+@import "./_variables.scss";
+
+// FOOTER
+.footer {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+
+  .lights {
+    border: $borderThemeLight;
+    padding: 1rem;
+    background-color: transparent;
+    cursor: pointer;
+
+    svg {
+      fill: $fontColorLight;
+      transform: scale(-1, 1) rotate(180deg);
+    }
+  }
+}

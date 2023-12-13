@@ -11,8 +11,12 @@ import Footer from "../components/Footer";
 import Item from "../components/Item";
 
 import "../styles/_home.scss";
+import useCheckMobileScreen from "../hooks/useCheckMobileScreen";
 
 const HomePage = () => {
+  // Mobile
+  const isMobile = useCheckMobileScreen();
+
   // Current Route Location
   const navigate = useNavigate();
   const location = useLocation();
@@ -132,53 +136,57 @@ const HomePage = () => {
     setActivePostId(postId);
   };
 
-  return (
-    <div className={`home container ${themeClassName}`}>
-      <div className="title-wrapper">
-        <h1>
-          <SplitText delay={20}>Blogs by Kota Cody Enokida</SplitText>
-        </h1>
-        <p>
-          <SplitText delay={60}>
-            Unfiltered thoughts and experiences of my day to
-            day.「榎田岬田の人生観」
-          </SplitText>
-        </p>
-      </div>
-      <div className="category-container">
-        {categories.map((category, i) => (
-          <button
-            key={category}
-            className={`category-pill ${
-              activeCategoryIndex === i ? "active" : ""
-            }`}
-            style={{ animationDelay: 0.25 + i / 20 + "s" }}
-            onClick={() => setActiveCategoryIndex(i)}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
-
-      <div className="home-content-container">
-        <div className="navigation desktop">
-          {posts.map((post, i) => (
-            <Link
-              to={`/post/${post.id}`}
-              className={`${post.id === activePostId ? "active" : ""}`}
-              onClick={() => handleLinkClick(i, post.id)}
-              key={post.title}
+  return showPost !== null && isMobile ? (
+    <div className="blog-content mobile">
+      <Outlet context={[posts[activePostIndex], handleRouteToHome]} />
+    </div>
+  ) : (
+    <>
+      <div className={`home container ${themeClassName}`}>
+        <div className="title-wrapper">
+          <h1>
+            <SplitText delay={20}>Blogs by Kota Cody Enokida</SplitText>
+          </h1>
+          <p>
+            <SplitText delay={60}>
+              Unfiltered thoughts and experiences of my day to
+              day.「榎田岬田の人生観」
+            </SplitText>
+          </p>
+        </div>
+        <div className="category-container">
+          {categories.map((category, i) => (
+            <button
+              key={category}
+              className={`category-pill ${
+                activeCategoryIndex === i ? "active" : ""
+              }`}
+              style={{ animationDelay: 0.25 + i / 20 + "s" }}
+              onClick={() => setActiveCategoryIndex(i)}
             >
-              {post.title}
-            </Link>
+              {category}
+            </button>
           ))}
         </div>
-        <div className="border" />
-        <div className="blog-content desktop">
-          <Outlet context={[posts[activePostIndex], handleRouteToHome]} />
-        </div>
 
-        <>
+        <div className="home-content-container">
+          <div className="navigation desktop">
+            {posts.map((post, i) => (
+              <Link
+                to={`/post/${post.id}`}
+                className={`${post.id === activePostId ? "active" : ""}`}
+                onClick={() => handleLinkClick(i, post.id)}
+                key={post.title}
+              >
+                {post.title}
+              </Link>
+            ))}
+          </div>
+          <div className="border" />
+          <div className="blog-content desktop">
+            <Outlet context={[posts[activePostIndex], handleRouteToHome]} />
+          </div>
+
           {/* Mobile Only Divs */}
           <div className="navigation mobile">
             {postsLoading ? (
@@ -196,16 +204,11 @@ const HomePage = () => {
               </>
             )}
           </div>
-          {showPost !== null && (
-            <div className="blog-content mobile">
-              <Outlet context={[posts[activePostIndex], handleRouteToHome]} />
-            </div>
-          )}
-        </>
-      </div>
+        </div>
 
-      <Footer toggleTheme={toggleTheme} />
-    </div>
+        <Footer toggleTheme={toggleTheme} />
+      </div>
+    </>
   );
 };
 

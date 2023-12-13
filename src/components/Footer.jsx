@@ -2,6 +2,8 @@ import React from "react";
 
 import { ReactComponent as Light } from "../images/sideBar/light.svg";
 
+import "../styles/_footer.scss";
+
 const Footer = ({ toggleTheme }) => {
   return (
     <div className="footer">

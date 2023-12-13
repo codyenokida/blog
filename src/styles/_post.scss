@@ -5,7 +5,7 @@
   transition: background-color 300ms;
   min-height: 100vh;
 
-  animation: fadein 750ms;
+  animation: fadeinDesktop 750ms;
 
   .post-container-mobile {
     display: none;
@@ -242,6 +242,8 @@
     overflow-y: scroll;
     overflow-x: hidden;
 
+    animation: fadeinMobile 750ms;
+
     .post-container-mobile {
       display: block;
       opacity: 0;
@@ -311,6 +313,13 @@
           margin-top: 2rem;
         }
       }
+    }
+  }
+
+  .blog-content.mobile {
+    height: 100%;
+    .post-container {
+      height: auto;
     }
   }
 }
