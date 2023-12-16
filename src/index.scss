@@ -16,6 +16,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: $backgroundColorLight;
   transition: background-color 100ms linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+
+  button,
+  input,
+  textarea {
+    font-family: JetBrains Mono;
+  }
 }
 
 body:has(.dark) {
@@ -24,7 +34,7 @@ body:has(.dark) {
 
 .container {
   min-height: calc(100vh - 8rem);
-  padding: 3rem 22rem;
+  width: 800px;
   transition: background-color 100ms linear;
 }
 
@@ -35,11 +45,11 @@ body:has(.dark) {
 @keyframes fadeinMobile {
   from {
     opacity: 0;
-    margin-top: 4rem;
+    margin-top: 2rem;
   }
   to {
     opacity: 1;
-    margin-top: 2rem;
+    margin-top: 0rem;
   }
 }
 
@@ -105,14 +115,15 @@ body:has(.dark) {
 @media only screen and (min-width: 768px) and (max-width: 1200px) {
   /* tablets and desktop */
   .container {
-    padding: 3rem 10rem;
+    width: 600px;
   }
 }
 
 @media only screen and (max-width: 767px) {
   .container {
     min-height: calc(100vh - 4rem);
-    padding: 2rem;
+    width: auto;
+    padding: 0 2rem;
 
     .item-container {
       .item {

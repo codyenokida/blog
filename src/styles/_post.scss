@@ -235,8 +235,7 @@
 
 @media only screen and (max-width: 767px) {
   .post-container {
-    margin: 2rem;
-    padding: 0;
+    padding: 0 2rem;
     min-height: unset;
     height: calc(100vh - 8.5rem);
     overflow-y: scroll;
@@ -256,7 +255,7 @@
         font-family: $globalFontFamily;
         border: $borderLight;
         padding: 0.5rem 1rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
 
         &:hover {
           background-color: $backgroundColorDark;

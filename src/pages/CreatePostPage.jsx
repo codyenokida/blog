@@ -18,7 +18,7 @@ import "../styles/_createPost.scss";
 import Modal from "../components/Modal";
 import ReorderItem from "../components/ReorderItem";
 
-const categories = ["Takes", "Travel", "Movies", "Tech", "Misc."];
+const categories = ["Thoughts", "Reviews", "Travel", "Tech", "Misc."];
 
 function isValidSpotifyTrackURL(url) {
   const spotifyRegex =
@@ -36,12 +36,16 @@ const CreatePostPage = () => {
   const [title, setTitle] = useState("");
   const [spotifyLink, setSpotifyLink] = useState("");
   const [chosenCategoryIndex, setChosenCategoryIndex] = useState(0);
+  const [dateType, setDateType] = useState(0); // 0 = singel date, 1 = date range
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [thumbnail, setThumbnail] = useState(null);
   const [content, setContent] = useState([]);
 
   // Error states
   const [titleError, setTitleError] = useState(false);
   const [spotifyLinkError, setSpotifyLinkError] = useState(false);
+  const [dateError, setDateError] = useState(false);
   const [thumbnailError, setThumbnailError] = useState(false);
   const [contentError, setContentError] = useState(false);
 
@@ -69,6 +73,19 @@ const CreatePostPage = () => {
       setSpotifyLinkError(false);
     }
   }, [spotifyLink]);
+
+  useEffect(() => {
+    if (dateType === 0) {
+      if (!!startDate) {
+        setDateError(false);
+      }
+    }
+    if (dateType === 1) {
+      if (!!startDate && !!endDate) {
+        setDateError(false);
+      }
+    }
+  }, [startDate, endDate, dateType]);
 
   useEffect(() => {
     if (thumbnail !== null) {
@@ -178,6 +195,25 @@ const CreatePostPage = () => {
       error = true;
     }
 
+    if (dateType === 0) {
+      if (!startDate) {
+        setDateError(true);
+        error = true;
+      }
+    } else if (dateType === 1) {
+      if (!startDate || !endDate) {
+        setDateError(true);
+        error = true;
+      } else if (startDate && endDate) {
+        const tempStartDate = new Date(startDate);
+        const tempEndDate = new Date(endDate);
+        if (tempStartDate > tempEndDate) {
+          setDateError(true);
+          error = true;
+        }
+      }
+    }
+
     if (!thumbnail) {
       setThumbnailError(true);
       error = true;
@@ -213,7 +249,7 @@ const CreatePostPage = () => {
       })
     );
 
-    const datePosted = new Date().toLocaleDateString();
+    const datePosted = new Date();
 
     // Upload thumbnail Image
     const thumbnailImage = await uploadImage(thumbnail, postId);
@@ -223,6 +259,9 @@ const CreatePostPage = () => {
       thumbnailImage,
       content: contentToUpload,
       datePosted,
+      dateType,
+      startDate: startDate ? new Date(startDate) : null,
+      endDate: endDate ? new Date(endDate) : null,
       category: categories[chosenCategoryIndex],
       spotifyLink,
       id: postId,
@@ -235,6 +274,8 @@ const CreatePostPage = () => {
     navigate(`/post/${postId}`);
   };
 
+  console.log(startDate);
+
   return (
     <>
       {showModal && (
@@ -245,35 +286,10 @@ const CreatePostPage = () => {
           setContent={setContent}
         />
       )}
-      <div className={`post-create-container ${themeClassName}`}>
-        <h1>Create blog post!</h1>
-        <div className="content-post-container">
-          <div className="content">
-            <div>
-              <input
-                className="title-input"
-                value={title}
-                placeholder="TITLE HERE!!"
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              {titleError && (
-                <span className="error">Needs to be a title homie</span>
-              )}
-            </div>
-            <div>
-              <input
-                className="spotify-input"
-                value={spotifyLink}
-                placeholder="Spotify Link HERE!"
-                onChange={(e) => setSpotifyLink(e.target.value)}
-              />
-              {spotifyLinkError && (
-                <span className="error">
-                  Needs to be a valid spotify link homie
-                </span>
-              )}
-            </div>
-
+      <div className={`container post-create ${themeClassName}`}>
+        <h1 className="title">Create blog post!</h1>
+        <div className="post-inputs">
+          <div className="input-container category">
             <div className="category-container">
               {categories.map((category, i) => (
                 <button
@@ -287,6 +303,85 @@ const CreatePostPage = () => {
                 </button>
               ))}
             </div>
+          </div>
+          <div className="input-container title">
+            <input
+              className="title-input"
+              value={title}
+              placeholder="Nice Title Here :)"
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            {titleError && (
+              <span className="error">Homie, you have to include a title.</span>
+            )}
+          </div>
+          <div className="input-container spotify">
+            <input
+              className="spotify-input"
+              value={spotifyLink}
+              placeholder="Spotify Link HERE!"
+              onChange={(e) => setSpotifyLink(e.target.value)}
+            />
+            {spotifyLinkError && (
+              <span className="error">
+                Needs to be a valid spotify link homie
+              </span>
+            )}
+          </div>
+          <div className="input-container date">
+            <div className="date-container">
+              <div className="date-type-picker">
+                <button
+                  className={dateType === 0 ? "active" : ""}
+                  onClick={() => setDateType(0)}
+                >
+                  Single
+                </button>
+                <button
+                  className={dateType === 1 ? "active" : ""}
+                  onClick={() => setDateType(1)}
+                >
+                  Range
+                </button>
+              </div>
+              {dateType === 0 && (
+                <input
+                  type="date"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  data-date=""
+                  data-date-format="DD MMMM YYYY"
+                />
+              )}
+              {dateType === 1 && (
+                <div className="date-range-container">
+                  <input
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    data-date=""
+                    data-date-format="DD MMMM YYYY"
+                  />{" "}
+                  to{" "}
+                  <input
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    data-date=""
+                    data-date-format="DD MMMM YYYY"
+                  />
+                </div>
+              )}
+            </div>
+
+            {dateError && (
+              <span className="error">You have to include a valid date!</span>
+            )}
+          </div>
+
+          <div className="content">
+            <div className="time-container"></div>
+
             <div>
               {thumbnail ? (
                 <div className="image-container">
@@ -313,7 +408,7 @@ const CreatePostPage = () => {
                 </button>
               )}
               {thumbnailError && (
-                <span className="error">Needs to be a thumbnail man</span>
+                <span className="error">You can't forget the thumbnail!</span>
               )}
             </div>
 

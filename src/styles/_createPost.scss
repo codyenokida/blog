@@ -1,247 +1,292 @@
 @import "./_variables.scss";
 
-.post-create-container {
-  padding: 4rem 26rem;
+.container.post-create {
+  .title {
+  }
 
-  .content-post-container {
+  .post-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     margin: 0;
     min-height: auto;
 
-    .content {
+    // ERROR STATES
+    .error {
+      color: $red;
+    }
+
+    // CATEGORY PILLS
+    .category-container {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
       gap: 1rem;
 
-      .error {
-        color: $red;
-      }
-
-      .title-input {
-        width: calc(100% - 8px);
-        height: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        background-color: transparent;
+      .category-pill {
+        font-family: $globalFontFamily;
+        font-weight: 700;
+        padding: 0.25rem 0.75rem;
         border: $borderLight;
-        font-family: JetBrains Mono;
+        background: transparent;
+        cursor: pointer;
+
+        position: relative;
+
+        &.active {
+          background: $green;
+        }
 
         &:hover {
-          opacity: 0.8;
+          opacity: 0.75;
         }
       }
+    }
 
-      .spotify-input {
-        width: calc(100% - 8px);
-        height: 1.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1rem;
-        background-color: transparent;
-        border: $borderLight;
-        font-family: JetBrains Mono;
+    // TITLE INPUT
+    .title-input {
+      width: calc(100% - 8px);
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      background-color: transparent;
+      border: none;
+      border-bottom: $borderLight;
+      font-family: JetBrains Mono;
 
-        &:hover {
-          opacity: 0.8;
-        }
+      &:hover {
+        opacity: 0.8;
       }
+    }
 
-      // CATEGORY PILLS
-      .category-container {
+    // SPOTIFY LINk INPUT
+    .spotify-input {
+      width: calc(100% - 8px);
+      height: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      background-color: transparent;
+      border: none;
+      border-bottom: $borderLight;
+      font-family: JetBrains Mono;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    // DATE INPUT
+    .date {
+      .date-container {
         display: flex;
-        flex-wrap: wrap;
         gap: 1rem;
-
-        .category-pill {
-          font-family: $globalFontFamily;
-          font-weight: 700;
-          padding: 0.25rem 0.75rem;
+        input {
           border: $borderLight;
-          background: transparent;
+          background-color: transparent;
+          padding: 0 0.5rem;
           cursor: pointer;
+        }
 
-          position: relative;
+        .date-type-picker {
+          button {
+            border: $borderLight;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            background-color: transparent;
 
-          &.active {
-            background: #adffce;
+            &.active {
+              background-color: $green;
+              color: $fontColorLight;
+            }
+
+            &:hover {
+              opacity: 0.75;
+            }
+
+            &:nth-child(2) {
+              border-left: none;
+            }
           }
+        }
 
-          &:hover {
-            opacity: 0.75;
+        .date-range-container {
+          input {
+            height: calc(100% - 2px);
+          }
+        }
+      }
+    }
+
+    // IMAGE STYLING
+    button.image-container {
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    .image-container {
+      position: relative;
+      border-style: dashed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: JetBrains Mono;
+      background-color: transparent;
+      align-items: stretch;
+      height: 300px;
+
+      img {
+        width: 100%;
+        height: 300px;
+        object-fit: contain;
+      }
+
+      button {
+        position: absolute;
+        top: 0.25rem;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+
+        svg {
+          width: 2rem;
+          height: 2rem;
+          rect {
+            fill: $fontColorLight;
           }
         }
       }
 
-      // IMAGE STYLING
-      button.image-container {
+      input {
+        display: none;
+      }
+
+      .image-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        svg {
+          width: 20%;
+          height: auto;
+        }
+      }
+    }
+
+    .content-block {
+      ul {
+        list-style-type: none;
+        padding: 0;
+
+        li {
+          margin-bottom: 1rem;
+
+          cursor: grab;
+          cursor: -webkit-grab;
+          cursor: -moz-grab;
+
+          &:active {
+            cursor: grabbing;
+          }
+
+          div {
+            width: 100%;
+            position: relative;
+            white-space: pre-line;
+
+            img {
+              width: 100%;
+              pointer-events: none;
+            }
+
+            button {
+              position: absolute;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background: transparent;
+              border: none;
+              top: 0;
+              right: -2rem;
+              cursor: pointer;
+
+              svg {
+                width: 1rem;
+                height: 1rem;
+                circle {
+                  stroke: $fontColorLight;
+                }
+                rect {
+                  fill: $fontColorLight;
+                }
+              }
+            }
+
+            &:before {
+              content: ".";
+              position: absolute;
+              top: -10px;
+              left: -1.5rem;
+              font-size: 20px;
+              line-height: 20px;
+              color: #ac14c2;
+              text-shadow: 0 5px #ac14c2, 0 10px #ac14c2, 5px 0 #ac14c2,
+                5px 5px #ac14c2, 5px 10px #ac14c2, 10px 0 #ac14c2,
+                10px 5px #ac14c2, 10px 10px #ac14c2;
+            }
+          }
+
+          .item-image {
+            display: flex;
+            flex-direction: column;
+
+            img {
+              width: 80%;
+              border: $borderLight;
+            }
+          }
+        }
+      }
+    }
+
+    .section-create-container {
+      gap: 0.5rem;
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      .section-chooser {
+        flex: 1;
+        margin: 0.5rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        border: $borderLight;
+        padding: 1rem 0;
         cursor: pointer;
 
         &:hover {
           opacity: 0.7;
         }
-      }
 
-      .image-container {
-        position: relative;
-        border-style: dashed;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: JetBrains Mono;
-        background-color: transparent;
-        align-items: stretch;
-        height: 300px;
-
-        img {
-          width: 100%;
-          height: 300px;
-          object-fit: contain;
+        p {
+          margin: 0.5rem 0 0 0;
         }
 
-        button {
-          position: absolute;
-          top: 0.25rem;
-          right: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: transparent;
-          border: none;
-          cursor: pointer;
-
-          svg {
-            width: 2rem;
-            height: 2rem;
-            rect {
-              fill: $fontColorLight;
-            }
-          }
-        }
-
-        input {
-          display: none;
-        }
-
-        .image-placeholder {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-direction: column;
-
-          svg {
-            width: 20%;
-            height: auto;
-          }
-        }
-      }
-
-      .content-block {
-        ul {
-          list-style-type: none;
-          padding: 0;
-
-          li {
-            margin-bottom: 1rem;
-
-            cursor: grab;
-            cursor: -webkit-grab;
-            cursor: -moz-grab;
-
-            &:active {
-              cursor: grabbing;
-            }
-
-            div {
-              width: 100%;
-              position: relative;
-              white-space: pre-line;
-
-              img {
-                width: 100%;
-                pointer-events: none;
-              }
-
-              button {
-                position: absolute;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: transparent;
-                border: none;
-                top: 0;
-                right: -2rem;
-                cursor: pointer;
-
-                svg {
-                  width: 1rem;
-                  height: 1rem;
-                  circle {
-                    stroke: $fontColorLight;
-                  }
-                  rect {
-                    fill: $fontColorLight;
-                  }
-                }
-              }
-
-              &:before {
-                content: ".";
-                position: absolute;
-                top: -10px;
-                left: -1.5rem;
-                font-size: 20px;
-                line-height: 20px;
-                color: #ac14c2;
-                text-shadow: 0 5px #ac14c2, 0 10px #ac14c2, 5px 0 #ac14c2,
-                  5px 5px #ac14c2, 5px 10px #ac14c2, 10px 0 #ac14c2,
-                  10px 5px #ac14c2, 10px 10px #ac14c2;
-              }
-            }
-
-            .item-image {
-              display: flex;
-              flex-direction: column;
-
-              img {
-                width: 80%;
-                border: $borderLight;
-              }
-            }
-          }
-        }
-      }
-
-      .section-create-container {
-        gap: 0.5rem;
-        display: flex;
-        align-items: center;
-        width: 100%;
-
-        .section-chooser {
-          flex: 1;
-          margin: 0.5rem 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-direction: column;
-          border: $borderLight;
-          padding: 1rem 0;
-          cursor: pointer;
-
-          &:hover {
-            opacity: 0.7;
-          }
-
-          p {
-            margin: 0.5rem 0 0 0;
-          }
-
-          svg {
-            width: 60px;
-            height: 60px;
-          }
+        svg {
+          width: 60px;
+          height: 60px;
         }
       }
     }

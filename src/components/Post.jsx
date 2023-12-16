@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useOutletContext, useLocation } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 import { Spotify } from "react-spotify-embed";
 
@@ -12,8 +12,6 @@ import Footer from "./Footer";
 import "../styles/_post.scss";
 
 const Post = () => {
-  const location = useLocation();
-
   // Outlet Context
   const [data, handleRouteToHome] = useOutletContext();
 
@@ -30,10 +28,6 @@ const Post = () => {
   const themeClassName = darkTheme ? "dark" : "light";
 
   useEffect(() => {
-    setSpotifyLoading(true);
-  }, [location, setSpotifyLoading]);
-
-  useEffect(() => {
     setComments(data?.comments);
   }, [data, setComments]);
 
@@ -42,6 +36,11 @@ const Post = () => {
     setTimeout(() => {
       setSpotifyLoading(false);
     }, 750);
+  };
+
+  // Handler for Spotify Embed onLoad
+  const handleSpotifyOnLoadStart = () => {
+    setSpotifyLoading(true);
   };
 
   // Handler for posting comments for a postId
@@ -71,12 +70,13 @@ const Post = () => {
     <div className={`post-container ${themeClassName}`}>
       {data?.spotifyLink && (
         <div className="music-container">
+          {/* Spotify Temporary Loader */}
           {spotifyLoading && <div className="spotify-loader" />}
           <div className={`spotify-container `}>
             <Spotify
               wide
               link={data.spotifyLink}
-              onLoadStart={() => setSpotifyLoading(true)}
+              onLoadStart={handleSpotifyOnLoadStart}
               onLoad={handleSpotifyOnLoad}
             />
           </div>
@@ -84,10 +84,19 @@ const Post = () => {
       )}
       <div className="title-container">
         <button className="link" onClick={handleRouteToHome}>
-          Back to home
+          ← Back to Home
         </button>
-        <h2>{data?.title || ""} </h2>
-        <p>{data?.datePosted || ""}</p>
+        <h2>{data?.title || ""}</h2>
+        <p></p>
+        {data?.dateType === 0 && (
+          <p>{data?.startDate?.toDate()?.toLocaleDateString()}</p>
+        )}
+        {data?.dateType === 1 && (
+          <p>
+            {data?.startDate?.toDate()?.toLocaleDateString()} -{" "}
+            {data?.endDate?.toDate()?.toLocaleDateString()}
+          </p>
+        )}
       </div>
       <div className="content">
         <div className="blog-content-container">
@@ -110,6 +119,9 @@ const Post = () => {
               );
             }
           })}
+          <p className="date-posted">
+            Posted: {data?.datePosted?.toDate()?.toLocaleDateString()}
+          </p>
         </div>
         <div className="blog-comment-container">
           <h1 className="title">Comments 🗣️</h1>
