@@ -36,7 +36,7 @@ const CreatePostPage = () => {
   const [title, setTitle] = useState("");
   const [spotifyLink, setSpotifyLink] = useState("");
   const [chosenCategoryIndex, setChosenCategoryIndex] = useState(0);
-  const [dateType, setDateType] = useState(0); // 0 = singel date, 1 = date range
+  const [dateType, setDateType] = useState(0); // 0 = single date, 1 = date range
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [thumbnail, setThumbnail] = useState(null);
@@ -274,8 +274,6 @@ const CreatePostPage = () => {
     navigate(`/post/${postId}`);
   };
 
-  console.log(startDate);
-
   return (
     <>
       {showModal && (
@@ -287,7 +285,7 @@ const CreatePostPage = () => {
         />
       )}
       <div className={`container post-create ${themeClassName}`}>
-        <h1 className="title">Create blog post!</h1>
+        <h1 className="title">Create Post!</h1>
         <div className="post-inputs">
           <div className="input-container category">
             <div className="category-container">

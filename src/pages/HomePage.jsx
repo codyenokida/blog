@@ -24,7 +24,7 @@ const HomePage = () => {
 
   // Category State
   const categories = useMemo(
-    () => ["Show All", "Reviews", "Travel", "Misc."],
+    () => ["Show All", "Thoughts", "Reviews", "Travel", "Misc."],
     []
   );
 
