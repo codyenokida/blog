@@ -6,6 +6,7 @@ import { AnimatePresence } from "framer-motion";
 import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
 import CreatePostPage from "./pages/CreatePostPage";
+import PostEditPage from "./pages/PostEditPage";
 
 import Post from "./components/Post";
 
@@ -32,7 +33,12 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/blog/create",
+    path: "post/:id/edit",
+    element: <PostEditPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/post/create",
     element: <CreatePostPage />,
     errorElement: <ErrorPage />,
   },

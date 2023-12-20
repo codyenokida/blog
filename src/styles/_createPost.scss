@@ -204,6 +204,13 @@
             position: relative;
             white-space: pre-line;
 
+            &.item-text {
+              textarea {
+                width: calc(100% - 0.5rem);
+                height: auto;
+              }
+            }
+
             img {
               width: 100%;
               pointer-events: none;

@@ -28,7 +28,7 @@ const Post = () => {
   const themeClassName = darkTheme ? "dark" : "light";
 
   useEffect(() => {
-    setComments(data?.comments);
+    setComments(data?.comments ?? []);
   }, [data, setComments]);
 
   // Handler for Spotify Embed (iframe) loading
@@ -66,16 +66,36 @@ const Post = () => {
     return null;
   }
 
+  const {
+    spotifyLink,
+    title,
+    dateType,
+    startDate,
+    endDate,
+    datePosted,
+    content,
+  } = data;
+
+  const formattedStartDate = startDate
+    ? startDate?.toDate()?.toLocaleDateString()
+    : "";
+  const formattedEndDate = endDate
+    ? endDate?.toDate()?.toLocaleDateString()
+    : "";
+  const formattedDatePosted = datePosted
+    ? datePosted?.toDate()?.toLocaleDateString()
+    : "";
+
   return (
     <div className={`post-container ${themeClassName}`}>
-      {data?.spotifyLink && (
+      {spotifyLink && (
         <div className="music-container">
           {/* Spotify Temporary Loader */}
           {spotifyLoading && <div className="spotify-loader" />}
           <div className={`spotify-container `}>
             <Spotify
               wide
-              link={data.spotifyLink}
+              link={spotifyLink}
               onLoadStart={handleSpotifyOnLoadStart}
               onLoad={handleSpotifyOnLoad}
             />
@@ -86,21 +106,17 @@ const Post = () => {
         <button className="link" onClick={handleRouteToHome}>
           ← Back to Home
         </button>
-        <h2>{data?.title || ""}</h2>
-        <p></p>
-        {data?.dateType === 0 && (
-          <p>{data?.startDate?.toDate()?.toLocaleDateString()}</p>
-        )}
-        {data?.dateType === 1 && (
+        <h2>{title || ""}</h2>
+        {dateType === 0 && <p>{formattedStartDate}</p>}
+        {dateType === 1 && (
           <p>
-            {data?.startDate?.toDate()?.toLocaleDateString()} -{" "}
-            {data?.endDate?.toDate()?.toLocaleDateString()}
+            {formattedStartDate} - {formattedEndDate}
           </p>
         )}
       </div>
       <div className="content">
         <div className="blog-content-container">
-          {data?.content?.map((section, i) => {
+          {content?.map((section, i) => {
             if (section.type === "text") {
               return (
                 <p className="section-text" key={`Section text ${i}`}>
@@ -119,9 +135,7 @@ const Post = () => {
               );
             }
           })}
-          <p className="date-posted">
-            Posted: {data?.datePosted?.toDate()?.toLocaleDateString()}
-          </p>
+          <p className="date-posted">Posted: {formattedDatePosted}</p>
         </div>
         <div className="blog-comment-container">
           <h1 className="title">Comments 🗣️</h1>
