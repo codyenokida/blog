@@ -150,7 +150,7 @@ const HomePage = () => {
       <div className={`home container ${themeClassName}`}>
         <div className="title-wrapper">
           <div className="with-image-container">
-            <img src={logo} alt="logo of kota enokida"/>
+            <img src={logo} alt="logo of kota enokida" />
             <h1>
               <SplitText delay={20}>Blogs by Kota Cody Enokida</SplitText>
             </h1>

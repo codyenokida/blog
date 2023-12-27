@@ -196,6 +196,10 @@
 @media only screen and (max-width: 767px) {
   .container.home {
     .title-wrapper {
+      h1 {
+        font-size: 1.5rem;
+      }
+
       div {
         img {
           width: 5rem;
@@ -268,15 +272,14 @@
             }
 
             .item-title {
+              display: flex;
+              flex-direction: column;
+              gap: 0.25rem;
               margin: 1rem 0 1.5rem 0;
-              .link {
-                font-size: 1.5rem;
-                color: $fontColorLight;
-              }
 
-              .date {
-                margin-top: 0;
-                color: $fontColorDescription;
+              .link {
+                font-size: 1.25rem;
+                color: $fontColorLight;
               }
             }
           }

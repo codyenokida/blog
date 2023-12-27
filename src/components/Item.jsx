@@ -27,7 +27,9 @@ const Item = ({ thumbnailImage, title, datePosted, index, onClick, id }) => {
         <Link className="link" to={`/post/${id}`} onClick={onClick}>
           {title}
         </Link>
-        {/* <p className="date">{datePosted}</p> */}
+        <Link to={`/post/${id}`} onClick={onClick}>
+          Read here ↦
+        </Link>
       </div>
     </div>
   );
