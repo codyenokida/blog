@@ -4,13 +4,15 @@ import { collection, getDocs, where, query } from "firebase/firestore";
 
 import { db } from "../utils/firebase";
 import { ThemeContext } from "../context/ThemeContext";
+import useCheckMobileScreen from "../hooks/useCheckMobileScreen";
 
 import SplitText from "../components/SplitText";
 import Footer from "../components/Footer";
 import Item from "../components/Item";
 
+import logo from "../images/logo512.png";
+
 import "../styles/_home.scss";
-import useCheckMobileScreen from "../hooks/useCheckMobileScreen";
 
 const HomePage = () => {
   // Mobile
@@ -147,9 +149,12 @@ const HomePage = () => {
     <>
       <div className={`home container ${themeClassName}`}>
         <div className="title-wrapper">
-          <h1>
-            <SplitText delay={20}>Blogs by Kota Cody Enokida</SplitText>
-          </h1>
+          <div className="with-image-container">
+            <img src={logo} alt="logo of kota enokida"/>
+            <h1>
+              <SplitText delay={20}>Blogs by Kota Cody Enokida</SplitText>
+            </h1>
+          </div>
           <p>
             <SplitText delay={60}>
               Unfiltered thoughts and experiences of my day to
