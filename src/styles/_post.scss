@@ -11,6 +11,12 @@
     display: none;
   }
 
+  // Back to Home Button
+  .back-to-home {
+    display: none;
+  }
+
+  // Spotify Container
   .music-container {
     position: relative;
 
@@ -40,12 +46,9 @@
     }
   }
 
+  // Title Container
   .title-container {
     margin-bottom: 1rem;
-
-    .link {
-      display: none;
-    }
 
     h2 {
       margin: 0;
@@ -57,6 +60,7 @@
     }
   }
 
+  // Content
   .content {
     white-space: pre-line;
 
@@ -168,6 +172,11 @@
 .post-container.dark {
   color: $fontColorDark;
 
+  .back-to-home {
+    color: $fontColorDark;
+    border: $borderDark;
+  }
+
   .title-container {
     .link {
       border: $borderDark;
@@ -195,7 +204,6 @@
         .comment-container {
           .datePosted {
             color: $fontColorDescription;
-            font-size: 0.5rem;
           }
         }
       }
@@ -248,21 +256,21 @@
       opacity: 0;
     }
 
-    .title-container {
-      .link {
-        display: block;
-        background-color: transparent;
-        font-family: $globalFontFamily;
-        border: $borderLight;
-        padding: 0.5rem 1rem;
-        margin-bottom: 1rem;
+    .back-to-home {
+      display: block;
+      background-color: transparent;
+      font-family: $globalFontFamily;
+      border: $borderLight;
+      padding: 0.5rem 1rem;
+      margin-bottom: 2rem;
 
-        &:hover {
-          background-color: $backgroundColorDark;
-          color: $fontColorDark;
-        }
+      &:hover {
+        background-color: $backgroundColorDark;
+        color: $fontColorDark;
       }
+    }
 
+    .title-container {
       h2 {
         font-size: 2rem;
       }
@@ -285,7 +293,7 @@
       }
 
       .blog-comment-container {
-        padding: 2rem 0;
+        padding: 1rem 0;
         .title {
           font-size: 1.5rem;
         }
@@ -311,6 +319,17 @@
           display: flex;
           margin-top: 2rem;
         }
+      }
+    }
+
+    .post-comment {
+      padding-bottom: 2rem;
+      border-bottom: $borderLight;
+    }
+
+    &.dark {
+      .post-comment {
+        border-bottom: $borderDark;
       }
     }
   }

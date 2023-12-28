@@ -10,7 +10,7 @@ const Footer = ({ toggleTheme }) => {
       <p>
         Made by Kota Cody Enokida using{" "}
         <a href="https://react.dev/" target="_blank" rel="noopener noreferrer">
-          React 👨‍💻
+          React👨‍💻
         </a>
         &nbsp;&&nbsp;
         <a
@@ -18,7 +18,7 @@ const Footer = ({ toggleTheme }) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Firebase 🔥
+          Firebase🔥
         </a>
       </p>
       <button className="lights" onClick={toggleTheme}>

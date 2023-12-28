@@ -88,6 +88,9 @@ const Post = () => {
 
   return (
     <div className={`post-container ${themeClassName}`}>
+      <button className="back-to-home" onClick={handleRouteToHome}>
+        ← Back to Home
+      </button>
       {spotifyLink && (
         <div className="music-container">
           {/* Spotify Temporary Loader */}
@@ -103,9 +106,6 @@ const Post = () => {
         </div>
       )}
       <div className="title-container">
-        <button className="link" onClick={handleRouteToHome}>
-          ← Back to Home
-        </button>
         <h2>{title || ""}</h2>
         {dateType === 0 && <p>{formattedStartDate}</p>}
         {dateType === 1 && (

@@ -12,26 +12,26 @@ const Item = ({ thumbnailImage, title, datePosted, index, onClick, id }) => {
   };
 
   return (
-    <div className="item" key={title} style={style}>
+    <Link
+      className="item"
+      key={title}
+      style={style}
+      to={`/post/${id}`}
+      onClick={onClick}
+    >
       <div className="image-container">
-        <Link to={`/post/${id}`} onClick={onClick}>
-          {loading && <div className="skeleton" />}
-          <img
-            src={thumbnailImage}
-            onLoad={handleOnLoad}
-            alt={`${title} thumbnail`}
-          />
-        </Link>
+        {loading && <div className="skeleton" />}
+        <img
+          src={thumbnailImage}
+          onLoad={handleOnLoad}
+          alt={`${title} thumbnail`}
+        />
       </div>
       <div className="item-title">
-        <Link className="link" to={`/post/${id}`} onClick={onClick}>
-          {title}
-        </Link>
-        <Link to={`/post/${id}`} onClick={onClick}>
-          Read here ↦
-        </Link>
+        <div className="title">{title}</div>
+        <div className="read-here">Read here ↦</div>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -55,8 +55,8 @@
     margin-bottom: 1.5rem;
 
     .category-pill {
+      color: $fontColorLight;
       font-family: $globalFontFamily;
-      font-weight: 700;
       padding: 0.25rem 0.75rem;
       border: $borderLight;
       background: transparent;
@@ -68,7 +68,7 @@
       animation: move-item 0.5s forwards;
 
       &.active {
-        background: #adffce;
+        background: $green;
       }
 
       &:hover {
@@ -101,6 +101,7 @@
           align-items: center;
           gap: 0.5rem;
           background-color: transparent;
+          color: $fontColorLight;
           border: none;
           width: 100%;
           padding-left: 0;
@@ -292,38 +293,37 @@
               width: 8rem;
               height: 8rem;
               border: $borderLight;
-              a {
-                position: relative;
-                display: block;
+
+              position: relative;
+              display: block;
+              width: 8rem;
+              height: 8rem;
+
+              .skeleton {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 13;
                 width: 8rem;
                 height: 8rem;
+                background-color: #e9ddddcc;
+                // The shine that's going to move across the skeleton:
+                background-image: linear-gradient(
+                  40deg,
+                  rgba(#fff, 0),
+                  rgba(#fff, 0.5),
+                  rgba(#fff, 0)
+                );
+                background-size: 40px 100%; // width of the shine
+                background-repeat: no-repeat; // No need to repeat the shine effect
+                background-position: left -40px top 0; // Place shine on the left side, with offset on the left based on the width of the shine - see background-size
+                animation: shine 1s ease infinite; // increase animation time to see effect in 'slow-mo'
+              }
 
-                .skeleton {
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  z-index: 13;
-                  width: 8rem;
-                  height: 8rem;
-                  background-color: #e9ddddcc;
-                  // The shine that's going to move across the skeleton:
-                  background-image: linear-gradient(
-                    40deg,
-                    rgba(#fff, 0),
-                    rgba(#fff, 0.5),
-                    rgba(#fff, 0)
-                  );
-                  background-size: 40px 100%; // width of the shine
-                  background-repeat: no-repeat; // No need to repeat the shine effect
-                  background-position: left -40px top 0; // Place shine on the left side, with offset on the left based on the width of the shine - see background-size
-                  animation: shine 1s ease infinite; // increase animation time to see effect in 'slow-mo'
-                }
-
-                img {
-                  width: 8rem;
-                  height: 8rem;
-                  object-fit: cover;
-                }
+              img {
+                width: 8rem;
+                height: 8rem;
+                object-fit: cover;
               }
             }
 
@@ -333,9 +333,13 @@
               gap: 0.25rem;
               margin: 0 0 1.5rem 1rem;
 
-              .link {
+              .title {
                 font-size: 1.25rem;
                 color: $fontColorLight;
+              }
+
+              .read-here {
+                font-weight: 400;
               }
             }
           }
@@ -439,7 +443,7 @@
             }
 
             .item-title {
-              .link {
+              .title {
                 color: $fontColorDark;
               }
             }
