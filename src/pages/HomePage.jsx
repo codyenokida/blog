@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { collection, getDocs, where, query } from "firebase/firestore";
+import { collection, getDocs, where, query, orderBy } from "firebase/firestore";
 
 import { db } from "../utils/firebase";
 import { ThemeContext } from "../context/ThemeContext";
@@ -11,8 +11,10 @@ import Footer from "../components/Footer";
 import Item from "../components/Item";
 
 import logo from "../images/logo512.png";
+import { ReactComponent as SortIcon } from "../images/sort-icon.svg";
 
 import "../styles/_home.scss";
+import ItemSkeleton from "../components/ItemSkeleton";
 
 const HomePage = () => {
   // Mobile
@@ -33,6 +35,7 @@ const HomePage = () => {
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
 
   // Posts
+  const [postOrdering, setPostOrdering] = useState("desc");
   const [postsLoading, setPostsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [activePostIndex, setActivePostIndex] = useState(0);
@@ -65,7 +68,11 @@ const HomePage = () => {
       if (activeCategoryIndex) {
         q = where("category", "==", categories[activeCategoryIndex]);
       }
-      const queryCollectionRef = query(collectionRef, q);
+      const queryCollectionRef = query(
+        collectionRef,
+        q,
+        orderBy("datePosted", postOrdering)
+      );
       const collectionSnap = await getDocs(queryCollectionRef);
       const collection = collectionSnap?.docs?.map((doc) => doc.data());
 
@@ -104,6 +111,7 @@ const HomePage = () => {
 
     getDocument();
   }, [
+    postOrdering,
     categories,
     activeCategoryIndex,
     navigate,
@@ -139,6 +147,15 @@ const HomePage = () => {
     setActivePostIndex(index);
     setShowPost(index);
     setActivePostId(postId);
+  };
+
+  // Handler for sort button click
+  const handleSortButtonClick = () => {
+    if (postOrdering === "asc") {
+      setPostOrdering("desc");
+    } else {
+      setPostOrdering("asc");
+    }
   };
 
   return showPost !== null && isMobile ? (
@@ -179,16 +196,24 @@ const HomePage = () => {
 
         <div className="home-content-container">
           <div className="navigation desktop">
-            {posts.map((post, i) => (
-              <Link
-                to={`/post/${post.id}`}
-                className={`${post.id === activePostId ? "active" : ""}`}
-                onClick={() => handleLinkClick(i, post.id)}
-                key={post.title}
-              >
-                {post.title}
-              </Link>
-            ))}
+            <div className="sort-container">
+              <button onClick={handleSortButtonClick} className={postOrdering}>
+                Sort by Date
+                <SortIcon />
+              </button>
+            </div>
+            <div className="posts">
+              {posts.map((post, i) => (
+                <Link
+                  to={`/post/${post.id}`}
+                  className={`${post.id === activePostId ? "active" : ""}`}
+                  onClick={() => handleLinkClick(i, post.id)}
+                  key={post.title}
+                >
+                  {post.title}
+                </Link>
+              ))}
+            </div>
           </div>
           <div className="border" />
           <div className="blog-content desktop">
@@ -197,8 +222,18 @@ const HomePage = () => {
 
           {/* Mobile Only Divs */}
           <div className="navigation mobile">
+            <div className="sort-container">
+              <button onClick={handleSortButtonClick} className={postOrdering}>
+                Sort by Date
+                <SortIcon />
+              </button>
+            </div>
             {postsLoading ? (
-              <div className="post-loading">Posts are Loading...</div>
+              <>
+                {["load1", "load2", "load3", "load4", "load5"].map((id, i) => (
+                  <ItemSkeleton id={id} index={i} />
+                ))}
+              </>
             ) : (
               <>
                 {posts.length
