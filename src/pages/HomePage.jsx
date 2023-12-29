@@ -100,11 +100,13 @@ const HomePage = () => {
           const firstPostId = collection?.[0]?.id ?? "";
           setActivePostId(firstPostId);
           setActivePostIndex(0);
+          navigate(`/post/${firstPostId}`);
         }
       } else {
         const firstPostId = collection?.[0]?.id ?? "";
         setActivePostId(firstPostId);
         setActivePostIndex(0);
+        navigate(`/post/${firstPostId}`);
       }
       postLoadingHelper(false);
     };
