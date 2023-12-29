@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import { Reorder } from "framer-motion";
 import { doc, setDoc } from "firebase/firestore";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import imageCompression from "browser-image-compression";
 import { v4 as uuidv4 } from "uuid";
 
@@ -285,6 +285,9 @@ const CreatePostPage = () => {
         />
       )}
       <div className={`container post-create ${themeClassName}`}>
+        <Link className="edit-link" to={`/`}>
+          Back to Home
+        </Link>
         <h1 className="title">Create Post!</h1>
         <div className="post-inputs">
           <div className="input-container category">

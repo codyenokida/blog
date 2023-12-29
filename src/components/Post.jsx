@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 import { Spotify } from "react-spotify-embed";
 
@@ -88,6 +88,7 @@ const Post = () => {
 
   return (
     <div className={`post-container ${themeClassName}`}>
+      <Link className="edit-link" to={`/post/${data.id}/edit`}>Edit Post</Link>
       <button className="back-to-home" onClick={handleRouteToHome}>
         ← Back to Home
       </button>

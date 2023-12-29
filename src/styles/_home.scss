@@ -4,6 +4,21 @@
 
 // PAGE CONTAINER
 .container.home {
+  // Admin Only Button
+  .edit-link {
+    display: inline-block;
+    border: $borderLight;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+    color: $fontColorLight;
+
+    &:hover {
+      background-color: $backgroundColorDark;
+      color: $fontColorDark;
+    }
+  }
+
   &:has(.blog-content.mobile) {
     overflow: hidden;
     height: 80vh;

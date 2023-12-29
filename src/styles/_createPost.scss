@@ -1,6 +1,21 @@
 @import "./_variables.scss";
 
 .container.post-create {
+  // Admin Only Button
+  .edit-link {
+    display: inline-block;
+    border: $borderLight;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+    color: $fontColorLight;
+
+    &:hover {
+      background-color: $backgroundColorDark;
+      color: $fontColorDark;
+    }
+  }
+
   .title {
     margin-top: 0;
   }

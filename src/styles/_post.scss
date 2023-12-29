@@ -1,6 +1,22 @@
 @import "./_variables.scss";
 
 .post-container {
+
+  // Admin only button
+  .edit-link {
+    display: inline-block;
+    border: $borderLight;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+    color: $fontColorLight;
+
+    &:hover {
+      background-color: $backgroundColorDark;
+      color: $fontColorDark;
+    }
+  }
+
   padding: 1.5rem 0 1rem 2rem;
   transition: background-color 300ms;
   min-height: 100vh;

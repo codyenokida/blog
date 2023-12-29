@@ -165,6 +165,9 @@ const HomePage = () => {
   ) : (
     <>
       <div className={`home container ${themeClassName}`}>
+        <Link className="edit-link" to="/post/create">
+          Create Post
+        </Link>
         <div className="title-wrapper">
           <div className="with-image-container">
             <img src={logo} alt="logo of kota enokida" />
