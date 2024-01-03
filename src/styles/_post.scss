@@ -17,6 +17,24 @@
     }
   }
 
+  .delete-post {
+    display: inline-block;
+    background-color: transparent;
+    height: 100%;
+    border: $borderLight;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+    margin-left: 1.5rem;
+    text-decoration: none;
+    color: $fontColorLight;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $backgroundColorDark;
+      color: $fontColorDark;
+    }
+  }
+
   padding: 1.5rem 0 1rem 2rem;
   transition: background-color 300ms;
   min-height: 100vh;

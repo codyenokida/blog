@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, deleteDoc } from "firebase/firestore";
 import { Spotify } from "react-spotify-embed";
 
 import { ThemeContext } from "../context/ThemeContext";
@@ -62,6 +62,11 @@ const Post = () => {
     }
   };
 
+  const deletePost = async () => {
+    await deleteDoc(doc(db, "blog-post", data.id));
+    window.location.reload();
+  };
+
   if (!data) {
     return null;
   }
@@ -88,7 +93,12 @@ const Post = () => {
 
   return (
     <div className={`post-container ${themeClassName}`}>
-      <Link className="edit-link" to={`/post/${data.id}/edit`}>Edit Post</Link>
+      <Link className="edit-link" to={`/post/${data.id}/edit`}>
+        Edit Post
+      </Link>
+      <button className="delete-post" onClick={deletePost}>
+        Delete Post
+      </button>
       <button className="back-to-home" onClick={handleRouteToHome}>
         ← Back to Home
       </button>

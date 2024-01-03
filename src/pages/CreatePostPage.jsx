@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { Reorder } from "framer-motion";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDocs, collection } from "firebase/firestore";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { useNavigate, Link } from "react-router-dom";
 import imageCompression from "browser-image-compression";
 import { v4 as uuidv4 } from "uuid";
+import emailjs from "@emailjs/browser";
 
 import { db, storage } from "../utils/firebase";
 import { ThemeContext } from "../context/ThemeContext";
@@ -175,6 +176,44 @@ const CreatePostPage = () => {
   };
 
   /**
+   * Handles uploading the image and returns the firestore URL
+   * @param {File} image
+   * @param {number} blogPostIndex
+   * @returns {string} url
+   */
+  const sendEmails = async (payload) => {
+    function wait(milliseconds) {
+      return new Promise((resolve) => {
+        setTimeout(resolve, milliseconds);
+      });
+    }
+    const collectionRef = collection(db, "email-list");
+    const collectionSnap = await getDocs(collectionRef);
+    const list = collectionSnap?.docs?.map((doc) => doc.data());
+    if (!list.length) return;
+    for (const user of list) {
+      const { email, name } = user;
+      const templateParams = {
+        ...payload,
+        recipient: email,
+        to_name: name,
+      };
+      wait(1200);
+      try {
+        await emailjs.send(
+          "service_5g4smqu",
+          "blog-template",
+          templateParams,
+          "YPhM_I0I8M56KcTGV"
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    return;
+  };
+
+  /**
    * Handles form submit
    *
    * Uploads all the content images to firebase storage,
@@ -182,7 +221,9 @@ const CreatePostPage = () => {
    *
    * Navigates to the blog page
    */
-  const handleFormSubmit = async () => {
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
     let error;
 
     if (!title) {
@@ -268,6 +309,9 @@ const CreatePostPage = () => {
     };
 
     setDoc(blogPostRef, { ...collectionObj }, { merge: true });
+
+    const postLink = `www.kotakun.blog/post/${postId}`;
+    await sendEmails({ blog_link: postLink });
     setPostLoading(false);
 
     // Redirect to the blog page
