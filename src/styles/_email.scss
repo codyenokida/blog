@@ -1,0 +1,71 @@
+@import "./_variables.scss";
+
+.email-container {
+  width: 100%;
+  height: calc(100vh - 6rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  gap: 2rem;
+
+  h1,
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: #171923;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: $borderLight;
+    padding: 1rem;
+    text-align: left;
+    justify-content: center;
+
+    label {
+      margin-top: 1rem;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    .error {
+      color: $red;
+    }
+
+    button {
+      margin-top: 1rem;
+      background-color: transparent;
+      color: $fontColorLight;
+      border: $borderLight;
+      padding: 0.5rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $backgroundColorDark;
+        color: $fontColorDark;
+      }
+
+      &:disabled {
+        opacity: 0.7;
+        pointer-events: none;
+      }
+    }
+  }
+
+  // DARK THEME
+  &.dark {
+    color: #faf9f4;
+    background-color: #171923;
+
+    a {
+      color: #faf9f4;
+    }
+  }
+}

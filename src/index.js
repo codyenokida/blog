@@ -15,6 +15,7 @@ import { ThemeContextProvider } from "./context/ThemeContext";
 import reportWebVitals from "./reportWebVitals";
 
 import "./index.scss";
+import EmailListPage from "./pages/EmailListPage";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
     path: "/post/create",
     element: <CreatePostPage />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: "/email-list",
+    element: <EmailListPage />,
   },
 ]);
 
