@@ -69,3 +69,28 @@
     }
   }
 }
+
+// MEDIA QUERIES!!!
+
+@media only screen and (min-width: 768px) {
+  /* tablets and desktop */
+}
+
+@media only screen and (max-width: 767px) {
+  .email-container {
+    padding: 0 1rem;
+    width: calc(100% - 2rem);
+
+    h1 {
+      font-size: 1.75rem;
+    }
+
+    div {
+      width: calc(100% - 2rem);
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+  /* portrait phones */
+}
